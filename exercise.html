@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #e2dfcf;
+            --color-dark: #36332d;
+            --color-medium: #6d685f;
+            --color-accent: #a3b45c;
+            --color-accent-light: #c4d283;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Section */
+        .navbar {
+            background-color: var(--color-dark);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Add underline animation to nav links */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin: 30px 0;
+            color: var(--color-dark);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -10px;
+            left: 20%;
+            background-color: var(--color-accent);
+            border-radius: 2px;
+        }
+
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .exercise-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Add a glowing border on hover */
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--color-accent), var(--color-dark), var(--color-accent-light));
+            z-index: -1;
+            border-radius: calc(var(--radius) + 2px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .exercise-image {
+            background-color: var(--color-medium);
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .exercise-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.15) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .exercise-card:hover .exercise-image::after {
+            opacity: 1;
+        }
+
+        .exercise-image i {
+            font-size: 60px;
+            color: white;
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+
+        .exercise-card:hover .exercise-image i {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--color-accent-light);
+        }
+
+        .exercise-content {
+            padding: 20px;
+            position: relative;
+        }
+
+        .exercise-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--color-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Add underline animation to card titles */
+        .exercise-content h4::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .exercise-card:hover .exercise-content h4::after {
+            width: 100%;
+        }
+
+        .exercise-content p {
+            color: var(--color-medium);
+            margin-bottom: 20px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .exercise-card:hover .exercise-content p {
+            color: var(--color-dark);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--color-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-dark);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Add the arrow animation */
+        .btn::after {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover::after {
+            right: 15px;
+            opacity: 1;
+        }
+
+        /* Add ripple effect on button click */
+        .btn::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        /* Difficulty label */
+        .difficulty {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: bold;
+            background-color: var(--color-dark);
+            color: white;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover .difficulty {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Add progress indicator */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background-color: var(--color-accent);
+            transition: width 0.4s ease;
+        }
+
+        .exercise-card:hover .progress-bar {
+            width: 100%;
+        }
+
+        .footer {
+            background-color: var(--color-dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Responsive designs */
+        @media (max-width: 768px) {
+            .exercises-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .nav-links li {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+        /* Add animations for page loading */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        /* Stagger the animations for each card */
+        .exercises-grid .card:nth-child(1) { animation-delay: 0.1s; }
+        .exercises-grid .card:nth-child(2) { animation-delay: 0.2s; }
+        .exercises-grid .card:nth-child(3) { animation-delay: 0.3s; }
+        .exercises-grid .card:nth-child(4) { animation-delay: 0.4s; }
+        .exercises-grid .card:nth-child(5) { animation-delay: 0.5s; }
+        .exercises-grid .card:nth-child(6) { animation-delay: 0.6s; }
+        .exercises-grid .card:nth-child(7) { animation-delay: 0.7s; }
+        .exercises-grid .card:nth-child(8) { animation-delay: 0.8s; }
+        .exercises-grid .card:nth-child(9) { animation-delay: 0.9s; }
+        .exercises-grid .card:nth-child(10) { animation-delay: 1.0s; }
+        .exercises-grid .card:nth-child(11) { animation-delay: 1.1s; }
+        .exercises-grid .card:nth-child(12) { animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Section --> 
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="homepage.php" class="logo">Codelab</a>
+            <ul class="nav-links">
+                <li><a href="editor.php">Code Editor</a></li>
+                <li><a href="homepage.php">Home</a></li>
+                <li><a href="cheat.php">Cheet Sheet</a></li>
+                <li><a href="profile.php">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title">Exercises</h1>
+
+        <div class="exercises-grid">
+            <!-- Exercise Card -->
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Beginner</span>
+                    <h4>Java Basics</h4>
+                    <p>Write a program to print 'Hello, World!'</p>
+                    <a href="E1.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-random"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Beginner</span>
+                    <h4>Swap Two Variables</h4>
+                    <p>Swap the values of two variables without using a third variable.</p>
+                    <a href="E2.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Beginner</span>
+                    <h4>Multiply Without *</h4>
+                    <p>Write a program to multiply two numbers without using the '*' operator.</p>
+                    <a href="E3.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Intermediate</span>
+                    <h4>Find Missing Number</h4>
+                    <p>Given an array of numbers, find the missing number.</p>
+                    <a href="E4.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-sort-amount-up"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Intermediate</span>
+                    <h4>Bubble Sort</h4>
+                    <p>Implement Bubble Sort to sort an array of numbers in ascending order.</p>
+                    <a href="E5.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-font"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Intermediate</span>
+                    <h4>Count Vowels</h4>
+                    <p>Write a program to count the number of vowels in a given string.</p>
+                    <a href="E6.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Advanced</span>
+                    <h4>Reverse a String</h4>
+                    <p>Reverse a given string without using built-in functions.</p>
+                    <a href="E7.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Advanced</span>
+                    <h4>Palindrome Check</h4>
+                     <p>Check if a given string is a palindrome (reads the same forward and backward).</p>
+                    <a href="E8.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Advanced</span>
+                    <h4>Decimal to Binary</h4>
+                    <p>Convert a given decimal number to its binary representation.</p>
+                    <a href="E9.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-clone"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Expert</span>
+                    <h4>Calculation</h4>
+                    <p>Find all prime number in a range.</p>
+                    <a href="E10.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Expert</span>
+                    <h4>Count Frequency</h4>
+                    <p>Count how many times each character appears in a string.</p>
+                    <a href="E11.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="card exercise-card">
+                <div class="exercise-image">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="exercise-content">
+                    <span class="difficulty">Expert</span>
+                    <h4>Permutations of a String</h4>
+                    <p>Prints all possible permutations of a given string (no repeated characters).</p>
+                    <a href="E12.php" class="btn">Do Now</a>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

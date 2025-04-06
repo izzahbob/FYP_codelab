@@ -1,0 +1,124 @@
+1.Coding Editor
+cannot run:
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter a number: ");
+        int num = scanner.nextInt();
+        
+        int factorial = 1;
+        for (int i = 1; i <= num; i++) {
+            factorial *= i;
+        }
+        
+        System.out.println("Factorial: " + factorial);
+    }
+}
+
+can run:
+public class Main {
+    public static String longestWord(String sentence) {
+        String[] words = sentence.split(" ");
+        String longest = "";
+        for (String word : words) {
+            if (word.length() > longest.length()) {
+                longest = word;
+            }
+        }
+        return longest;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(longestWord("Java is an amazing programming language")); // programming
+    }
+}
+
+
+2. cheet sheet:
+1) variables
+let name = "Alice";       // can be reassigned
+const age = 25;           // constant (cannot be changed)
+var city = "KL";          // old way (avoid using `var`)
+
+2) data types
+let str = "Hello";        // String
+let num = 123;            // Number
+let bool = true;          // Boolean
+let arr = [1, 2, 3];      // Array
+let obj = {name: "A"};    // Object
+let nothing = null;       // Null
+let unknown;              // Undefined
+
+3) conditional statements
+if (age > 18) {
+  console.log("Adult");
+} else if (age === 18) {
+  console.log("Exactly 18");
+} else {
+  console.log("Minor");
+}
+
+4) loops
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+let i = 0;
+while (i < 5) {
+  console.log(i);
+  i++;
+}
+
+arr.forEach(item => console.log(item)); // Loop through array
+
+5) functions
+function greet(name) {
+  return "Hello " + name;
+}
+
+const add = (a, b) => a + b;  // Arrow function
+
+6) arrays
+let fruits = ["apple", "banana", "cherry"];
+
+fruits.push("orange");        // Add to end
+fruits.pop();                 // Remove from end
+fruits.shift();               // Remove from start
+fruits.unshift("grape");      // Add to start
+
+fruits.forEach(f => console.log(f));
+let upper = fruits.map(f => f.toUpperCase());  // Transform
+
+7) comparison operators
+==     // Equal (loose)
+===    // Equal (strict)
+!=     // Not equal
+!==    // Strict not equal
+> < >= <= // Greater/less than
+
+8) useful methods
+let s = "Hello World";
+
+s.length;             // 11
+s.toUpperCase();      // "HELLO WORLD"
+s.toLowerCase();      // "hello world"
+s.includes("World");  // true
+s.replace("Hello", "Hi"); // "Hi World"
+
+9) events
+<button onclick="sayHi()">Click Me</button>
+<script>
+function sayHi() {
+  alert("Hi there!");
+}
+</script>
+
+10) try catch (error handling)
+try {
+  throw new Error("Something went wrong");
+} catch (e) {
+  console.error(e.message);
+}
